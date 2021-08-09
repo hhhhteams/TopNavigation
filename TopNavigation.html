@@ -1,0 +1,458 @@
+﻿<script type="text/javascript" src="https://hhhhteams.sharepoint.com/sites/HHHHTeams/Style%20Library/js/angular/Online/TopNavigation/TopNavigation.js?updated=03-05-2020"></script>
+<style>
+    #pageTitle a {
+        display: none !important;
+    }
+
+    #contentRow {
+        padding-top: 0px !important;
+        margin-top: -15px;
+    }
+    #SortItemPopUp .page-content.glyphicon-menu-hamburger{font-size: 13.5px;top: 14px !important;}
+    #UpdateTopNavigationPopup .page-content.glyphicon-menu-hamburger{font-size: 13.5px;top: 12px !important;}
+    #SortItemPopUp  .section-event .table > thead .searchclear{right: 8px!important;}
+    #SortItemPopUp .glyphicon.glyphicon-chevron-up,  #SortItemPopUp .glyphicon.glyphicon-chevron-down, #SortItemPopUp .glyphicon_active{right: -15px !important;}
+</style>
+
+<div class="top-navigate " ng-controller="TopNavigationController" ng-cloak>
+    <div>
+        <h1 class="blue-clr">updatetopnavigation </h1>
+    </div>
+    <div class="UpdateTopNavigationpage">
+        <div class="content" ng-cloak>
+            <nav id="navigation">
+                <ul id="main-menu">
+                    <li class="parent" ng-repeat="item in Nodes">
+                        <img class="rev-img" ng-if="item.ownersonly==true" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/Facilitators-do-not-disturb.png">
+                        <img class="rev-img" ng-if="item.IsVisible==false" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/do-not-disturb-rounded.png">
+                        <a ng-href="{{item.Url}}">{{item.Title}}</a>
+                        <a class="hreflink edit-icon" ng-if="isMemberOwner==true" ng-click="openpopup(item)"><img ng-src="{{baseUrl}}/_layouts/images/edititem.gif"></a>
+                        <a class="hreflink" ng-click="sortitem(item.ParentID);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/customsort.png"></a>
+                        <a class="hreflink" ng-if="isOwner==true" ng-click="deleteitem(item);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/delete.gif"></a>
+                        <ul class="sub-menu">
+                            <li><a class="hreflink" ng-click="openpopup(null,item);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/addnew.png" alt="" title="Add Navigation Item"></a></li>
+                            <li class="pre" ng-repeat="child1 in item.childs">
+                                <img class="pre-img" ng-if="child1.ownersonly==true" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/Facilitators-do-not-disturb.png">
+                                <img class="pre-img" ng-if="child1.IsVisible==false" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/do-not-disturb-rounded.png">
+                                <a ng-href="{{child1.Url}}">{{child1.Title}}</a>
+                                <a class="hreflink edit-icon" ng-if="isMemberOwner==true" ng-click="openpopup(child1,item)"><img ng-src="{{baseUrl}}/_layouts/images/edititem.gif"></a>
+                                <a class="hreflink" ng-click="sortitem(child1.ParentID);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/customsort.png"></a>
+                                <a class="hreflink" ng-if="isOwner==true" ng-click="deleteitem(child1);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/delete.gif"></a>
+                                <ul class="sub-menu">
+                                    <li><a class="hreflink" ng-click="openpopup(null, child1);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/addnew.png" alt="" title="Add Navigation Item"></a></li>
+                                    <li ng-repeat="child2 in child1.childs">
+                                        <img class="pre-img" ng-if="child2.ownersonly==true" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/Facilitators-do-not-disturb.png">
+                                        <img class="pre-img" ng-if="child2.IsVisible==false" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/do-not-disturb-rounded.png">
+                                        <a ng-href="{{child2.Url}}">{{child2.Title}}</a>
+                                        <a class="hreflink edit-icon" ng-if="isMemberOwner==true" ng-click="openpopup(child2,child1)"><img ng-src="{{baseUrl}}/_layouts/images/edititem.gif"></a>
+                                        <a class="hreflink" ng-click="sortitem(child2.ParentID);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/customsort.png"></a>
+                                        <a class="hreflink" ng-if="isOwner==true" ng-click="deleteitem(child2);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/delete.gif"></a>
+                                        <ul class="sub-menu thirdlevelmenu">
+                                            <li><a class="hreflink" ng-click="openpopup(null, child2);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/addnew.png" alt="" title="Add Navigation Item"></a></li>
+                                            <li ng-repeat="child3 in child2.childs">
+                                                <img class="pre-img" ng-if="child3.ownersonly==true" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/Facilitators-do-not-disturb.png">
+                                                <img class="pre-img" ng-if="child3.IsVisible==false" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/do-not-disturb-rounded.png">
+                                                <a ng-href="{{child3.Url}}">{{child3.Title}}</a>
+                                                <a class="hreflink" ng-if="isMemberOwner==true" ng-click="openpopup(child3,child2)"><img ng-src="{{baseUrl}}/_layouts/images/edititem.gif"></a>
+                                                <a class="hreflink" ng-click="sortitem(child3.ParentID);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/customsort.png"></a>
+                                                <a class="hreflink" ng-if="isOwner==true" ng-click="deleteitem(child3);"><img ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/24/delete.gif"></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a class="hreflink" ng-click="openpopup();"><img style="width:17px;" ng-src="{{baseUrl}}/SiteCollectionImages/ICONS/32/addnew.png" alt="" title="Add Navigation Item"></a></li>
+
+                </ul>
+                <!-- .menu list -->
+
+            </nav>
+
+        </div>
+        <div id="UpdateTopNavigationPopup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+            <div class="modal-dialog" style="width: 700px;">
+                <div class="modal-content">
+                    <div class="panel-title">
+                        <button type="button" class="close cancel" data-dismiss="modal" ng-click="cancelpopup()" style="min-width: 10px;">&times;</button>
+                        <h3 class="modal-title">
+                            {{modaltype}} Top Navigation
+                            <span class="pull-right NMt-7">
+                                <page-settings-info webpartid="''"></page-settings-info>
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12 tab-content bdrbox pad10">
+                            <ng-form name="NewForm" novalidate role="form">
+                                <div class="parent-id">
+                                    <div id="parentdiv" class="form-group">
+                                        <label class="col-sm-2">
+                                            Parent:
+                                        </label>
+                                        <div ng-if="Parent != undefined" class="col-sm-5">{{Parent.Title}}</div>
+                                        <div ng-if="Parent == undefined" class="col-sm-5">Root</div>
+                                        <div class="col-sm-5 text-right">
+                                            <img class="hreflink" ng-src="{{baseUrl}}/_layouts/images/edititem.gif">
+                                            <a class="hreflink" ng-click="openparent(Parent);"> Change Parent</a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2">
+                                            Visibility:
+
+                                        </label>
+                                        <div class="col-sm-5">
+                                            <input type="radio" ng-checked="TopNavigationItem.IsVisible ==true" ng-model="Allcheck" name="rdVisibility" id="rdVisibilityAll" checked>All
+                                            <input type="radio" ng-checked="TopNavigationItem.IsVisible ==false" ng-model="Noshow" name="rdVisibility" id="rdVisibilityNoShow">No Show
+                                        </div>
+                                        <div class="col-sm-5 text-right">
+                                            <input type="checkbox" ng-checked="TopNavigationItem.ownersonly ==true" ng-model="checkFacilitators" name="chkFacilitatorsOnly" id="chkFacilitatorsOnly" value="chkFacilitatorsOnly"> Facilitators Only
+
+                                        </div>
+                                        <div class="clearfix">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2">
+                                        Title:
+
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input class="searchbox_height form-control" type="text" ng-required="true" id="txtTitle" ng-model="TopNavigationItem.Title" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="col-sm-2">
+                                            Url:
+
+                                        </label>
+                                        <div class="col-xs-10">
+                                            <input class="searchbox_height form-control" ng-required="true" type="text" ng-model="TopNavigationItem.Url" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                </div>
+                            </ng-form>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="ItemInfo" ng-show="modaltype=='Update'">
+                        <div>
+                            Created <span>
+                                {{TopNavigationItem.Created | date}}
+                            </span> by <span class="footerUsercolor">{{TopNavigationItem.Author}}</span>
+                        </div>
+                        <div>Last modified <span>{{TopNavigationItem.Modified}}</span> by <span class="footerUsercolor">{{TopNavigationItem.Editor}}</span></div>
+                        <div>
+                            <a class="hreflink" ng-click="removeItem(TopNavigationItem);"> <img ng-src="/_layouts/images/delete.gif"> Delete this item</a>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a ng-show="modaltype=='Update'" ng-href="{{baseUrl}}/SP/Lists/TopNavigation/EditForm.aspx?ID={{TopNavigationItem.Id}}" target="_blank">Open out-of-the-box form</a>
+                        <button type="button" ng-disabled="NewForm.$error.required" class="btn btn-primary" ng-click="UpdateItem()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="cancelpopup()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="AddTopNavigationPopup" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+            <div class="modal-dialog" style="width: 60%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="cancelpopup()" style="min-width: 10px;">&times;</button>
+                        <h4 class="modal-title">
+                            {{modaltype}} Top Navigation
+                            <span class="pull-right NMt-7">
+                                <page-settings-info webpartid="''"></page-settings-info>
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <ng-form name="NewForm" novalidate role="form">
+                            <div class="row">
+                                <div id="parentdiv" class="form-group col-xs-12">
+
+                                    <div ng-if="Parent != undefined" class="col-xs-8 no-padding">Parent: {{Parent.Title}}</div>
+                                    <div ng-if="Parent == undefined" class="col-xs-8 no-padding">Parent: Root</div>
+                                    <div class="col-xs-4 pull-right">
+                                        <a class="hreflink pull-right" ng-click="openparent(Parent);"> Change Parent &nbsp;&nbsp;<img class="hreflink" ng-src="batham"></a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-4 no-padding">
+                                            <input class="mr-5 mt-0" type="radio" name="selectTypeRadio" ng-click="pageType('Existing')" />Search Existing Page and Link
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input class="mr-5 mt-0" type="radio" name="selectTypeRadio" ng-click="pageType('Copy')" />Copy/Paste Link
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <input class="mr-5 mt-0" type="radio" name="selectTypeRadio" ng-click="pageType('NewPage')" />Create a New Page and Link
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group" ng-if="createType=='Existing' && isSelectType">
+                                    <div class="col-xs-3">
+                                        Url:
+
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <input class="form-control" ng-required="true" type="text" ng-model="TopNavigationItem.href.Url" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group" ng-if="createType=='Copy' && isSelectType">
+                                    <div class="col-xs-3">
+                                        Url:
+
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <input class="form-control" ng-required="true" type="text" ng-model="TopNavigationItem.href.Url" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group" ng-if="icreateType=='Existing' && isSelectType">
+                                    <div class="col-xs-3">
+                                        Top Navigation Title:
+
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <input class="form-control" type="text" ng-required="true" id="txtTitle" ng-model="TopNavigationItem.Title" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="form-group" ng-if="createType=='Existing'">
+                                    <div class="col-xs-12 text-center">
+                                        <a class="hreflink" ng-click="showExistingPageLInk();">Search Existing Page and Link</a>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-if="icreateType=='Copy' && isSelectType">
+                                    <div class="col-xs-3">
+                                        Top Navigation Title:
+
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <input class="form-control" type="text" ng-required="true" id="txtTitle" ng-model="TopNavigationItem.Title" />
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="form-group" ng-if="createType=='NewPage'">
+
+                                    <div class="col-xs-12 text-center">
+                                        <a ng-if="TopNavigationItem.Title!=undefined" target="_blank" ng-href="{{baseUrl}}/Pages/create-new-page.aspx?ParentId={{TopNavigationItem.ParentID}}&Title={{TopNavigationItem.Title}}" ng-click="closeCreateNewPagePop()">Create a New Page and Link</a>
+                                        <a ng-if="TopNavigationItem.Title == undefined" target="_blank" ng-href="{{baseUrl}}/Pages/create-new-page.aspx?ParentId={{TopNavigationItem.ParentID}}" ng-click="closeCreateNewPagePop()">Create a New Page and Link</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </ng-form>
+                    </div>
+                    <div class="modal-footer" ng-show="createType=='Copy'|| createType=='Existing'">
+                        <button type="button" ng-disabled="NewForm.$error.required" class="btn btn-primary" ng-click="UpdateItem()">Save</button>
+                        <button type="button" class="btn btn-primary" ng-click="cancelpopup()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="manageparent" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+            <div class="modal-dialog" style="width: 650px;">
+                <div class="modal-content">
+                    <div class="panel-title">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="cancelparent()" style="min-width: 10px;">&times;</button>
+                        <h3 class="modal-title">
+                            Select Parent
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <div id="parentid" style="display:none;"></div>
+                        <div class="col-sm-12 tab-content bdrbox  ">
+
+                            <div class="form-group mt-10">
+                                <label class="col-xs-3">
+                                    Top Level:
+                                </label>
+                                <div class="col-xs-9">
+                                    <select id="parentlevel1" class="form-control" ng-change="loadParentlevel2(ddlParentLevel1)" ng-model="ddlParentLevel1">
+                                        <option value="" class="">Root</option>
+                                        <option value="{{item.Id}}" ng-repeat="item in Nodes">{{item.Title}}</option>
+                                    </select>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3">
+                                    Second Level:
+
+                                </label>
+                                <div class="col-xs-9">
+                                    <select id="parentlevel1" class="form-control" ng-change="loadParentlevel3(ddlParentLevel2)" ng-model="ddlParentLevel2">
+                                        <option value="" class="">Select</option>
+                                        <option value="{{item.Id}}" ng-repeat="item in secondLevel">{{item.Title}}</option>
+                                    </select>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-3">
+                                    Third Level:
+
+                                </label>
+                                <div class="col-xs-9">
+                                    <select id="parentlevel1" class="form-control" ng-model="ddlParentLevel3">
+                                        <option value="" class="">Select</option>
+                                        <option value="{{item.Id}}" ng-repeat="item in thirdLevel">{{item.Title}}</option>
+                                    </select>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="saveselectedparent()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="cancelparent()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start of serach Existing page and link -->
+        <div id="ExistingPageLInkPopUp" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+            <div class="modal-dialog" style="width: 650px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="cancelExistingPageLInk()" style="min-width: 10px;">&times;</button>
+                        <h4 class="modal-title">
+                            Search Existing Page and Link
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-7">
+                            <input id="searchinput" type="search" ng-model="search" style='height: 30px;' placeholder="Search all..." class="form-control">
+                            <span class="searchclear" style="left:98%!important;" ng-click="clearControl('searchinput')">X</span>
+                        </div>
+                        <div class="col-sm-3">
+                            Showing {{filtered.length}} of {{AllPages.length}} Content
+                        </div>
+                        <div class="col-sm-2">
+                            <a data-ng-click="ClearFilters()" class="hreflink pull-right">Clear All <img ng-src="/_layouts/images/delete.gif"></a>
+                        </div>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table id="documents" class="table table-hover" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="cursor:pointer;" ng-click="orderBy='FileLeafRef'; reverse=!reverse;">Name</th>
+                                            <th style="cursor:pointer; width:6%" ng-click="orderBy='Page_x002d_Title'; reverse=!reverse;">Title</th>
+
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in filtered = (AllPages | filter:search | orderBy:orderBy:reverse)">
+                                            <td><input type="radio" name="selectPageRadio" ng-click="selectPage(item)"></td>
+                                            <td>
+                                                <div class="col-sm-12" style="padding:0 3px!important">
+                                                    <a target="_blank" ng-href="{{item.EncodedAbsUrl}}">
+                                                        <span data-ng-bind="item.FileLeafRef"></span>
+                                                    </a>
+                                                </div>
+
+                                            </td>
+                                            <td>
+                                                <div class="col-sm-12" style="padding:0 3px!important">
+                                                    <span ng-if="item.Page_x002d_Title!=undefined">{{item.Page_x002d_Title}}</span>
+                                                    <span ng-if="item.Page_x002d_Title==undefined">{{item.FileLeafRef}}</span>
+
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END of serach Existing page and link -->
+        <div id="SortItemPopUp" class=" modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="panel-title">
+                        <button type="button" class="close" data-dismiss="modal" ng-click="cancelsortingPopUp()" style="min-width: 10px;">&times;</button>
+                        <h3>Update Sort Order
+                            <span class="pull-right NMt-7">
+                                <page-settings-info webpartid="'updatesortorder'"></page-settings-info>
+                            </span>
+                        </h3>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="tab-content bdrbox col-sm-12">
+                        <div id="table-wrapper" class="section-event mt-10 mb-10">
+                            <div class="container-new">
+                                <table id="documents" class="table table-hover" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:70%;">
+                                                <div style="width:45%;">
+                                                    <input id="SerchSortTitle" type="text" placeholder="Title" class="form-control " ng-model="SerchSortTitle">
+                                                    <span class="searchclear" ng-show="SerchSortTitle.length>0" ng-click="clearControl('SerchSortTitle')">X</span>
+                                                    <span class="{{orderBy1=='Title'&& !showicon?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortByorder('Title', false)"></span>
+                                                    <span class="{{orderBy1=='Title'&& showicon?'glyphicon_active':'glyphicon'}}  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortByorder('Title', true)"></span>
+                                                </div>
+                                            </th>
+                                            <th style="width:30%;">
+                                                <div style="width:24%;">
+                                                    <input type="text" id="SerchSortOrder" placeholder="Sort Order" class="form-control " ng-model="SerchSortOrder">
+                                                    <span class="searchclear" ng-show="SerchSortOrder.length>0" ng-click="clearControl('SerchSortOrder')">X</span>
+                                                    <span class="{{orderBy1=='Order0'&& !showicon?'glyphicon_active':'glyphicon'}} glyphicon  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortByorder('Order0', false)"></span>
+                                                    <span class="{{orderBy1=='Order0'&& showicon?'glyphicon_active':'glyphicon'}} glyphicon  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortByorder('Order0', true)"></span>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="tdrow" ng-repeat="item in filtered = (SelectedSortItem|orderBy:orderBy1:showicon | filter:{Title:SerchSortTitle,Order0:SerchSortOrder})">
+                                            <td>{{item.Title}}</td>
+                                            <td style="width:25%;">
+                                                <input type="text" ng-model="item.Order0" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="modal-footer">
+                        <a class="hreflink" target="_blank" ng-click="OutOfTheBox(SelectedSortItem[0].ParentID)">Open out-of-the-box form</a>
+                        <button type="button" class="btn btn-primary" ng-click="saveselectedSortItem()">Save</button>
+                        <button type="button" class="btn btn-default" ng-click="cancelsortingPopUp()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--<shareweb-progress-bar progressbarid="'ReplaceExistingDocumentprogressbar'"></shareweb-progress-bar>-->
+    </div>
+</div>
