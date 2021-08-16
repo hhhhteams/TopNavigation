@@ -424,17 +424,17 @@
                                                 <div style="width:24%;">
                                                     <input type="text" id="SerchSortOrder" placeholder="Sort Order" class="form-control " ng-model="SerchSortOrder">
                                                     <span class="searchclear" ng-show="SerchSortOrder.length>0" ng-click="clearControl('SerchSortOrder')">X</span>
-                                                    <span class="{{orderBy1=='Order0'&& !showicon?'glyphicon_active':'glyphicon'}} glyphicon  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortByorder('Order0', false)"></span>
-                                                    <span class="{{orderBy1=='Order0'&& showicon?'glyphicon_active':'glyphicon'}} glyphicon  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortByorder('Order0', true)"></span>
+                                                    <span class="{{orderBy1=='SortOrder'&& !showicon?'glyphicon_active':'glyphicon'}} glyphicon  glyphicon-chevron-up direction-arrow arrow_up" ng-click="sortByorder('SortOrder', false)"></span>
+                                                    <span class="{{orderBy1=='SortOrder'&& showicon?'glyphicon_active':'glyphicon'}} glyphicon  glyphicon-chevron-down direction-arrow arrow_down" ng-click="sortByorder('SortOrder', true)"></span>
                                                 </div>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tdrow" ng-repeat="item in filtered = (SelectedSortItem|orderBy:orderBy1:showicon | filter:{Title:SerchSortTitle,Order0:SerchSortOrder})">
+                                        <tr class="tdrow" ng-repeat="item in filtered = (SelectedSortItem|orderBy:orderBy1:showicon | filter:{Title:SerchSortTitle,SortOrder:SerchSortOrder})">
                                             <td>{{item.Title}}</td>
                                             <td style="width:25%;">
-                                                <input type="text" ng-model="item.Order0" />
+                                                <input type="text" ng-model="item.SortOrder" />
                                             </td>
                                         </tr>
                                     </tbody>
